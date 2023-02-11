@@ -1,22 +1,51 @@
 package log
 
 import (
+	"bytes"
 	"encoding"
 	"encoding/json"
 	"fmt"
-	"io"
 	"reflect"
+	"time"
 
+	"github.com/aliyun/aliyun-log-go-sdk/producer"
 	kitlog "github.com/go-kit/kit/log"
 )
 
 type aliLogger struct {
-	io.Writer
+	producer *producer.Producer
+	callBack producer.CallBack
+	project  string
+	logStore string
+	topic    string
+	source   string
+}
+
+// Option 可选参数定义
+type Option func(o *aliLogger)
+
+func WithAliLoggerCallBack(callback producer.CallBack) Option {
+	return func(o *aliLogger) {
+		o.callBack = callback
+	}
 }
 
 // NewAliLogger 阿里云sls日志服务
-func NewAliLogger(w io.Writer) kitlog.Logger {
-	return &aliLogger{w}
+func NewAliLogger(project, logStore, topic, source string, producer *producer.Producer, options ...Option) kitlog.Logger {
+
+	logger := &aliLogger{
+		project:  project,
+		logStore: logStore,
+		topic:    topic,
+		source:   source,
+		producer: producer,
+	}
+
+	for _, option := range options {
+		option(logger)
+	}
+
+	return logger
 }
 
 func (l *aliLogger) Log(keyvals ...interface{}) error {
@@ -30,9 +59,23 @@ func (l *aliLogger) Log(keyvals ...interface{}) error {
 		}
 		merge(m, k, v)
 	}
-	enc := json.NewEncoder(l.Writer)
+
+	buffer := &bytes.Buffer{}
+	enc := json.NewEncoder(buffer)
 	enc.SetEscapeHTML(false)
-	return enc.Encode(m)
+	if err := enc.Encode(m); err != nil {
+		return err
+	}
+
+	log := producer.GenerateLog(uint32(time.Now().Unix()), map[string]string{
+		"content": buffer.String(),
+	})
+
+	if l.callBack != nil {
+		return l.producer.SendLogWithCallBack(l.project, l.logStore, l.topic, l.source, log, l.callBack)
+	}
+
+	return l.producer.SendLog(l.project, l.logStore, l.topic, l.source, log)
 }
 
 func merge(dst map[string]interface{}, k, v interface{}) {
