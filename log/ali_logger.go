@@ -12,6 +12,11 @@ import (
 	kitlog "github.com/go-kit/kit/log"
 )
 
+// aliLogger 阿里云日志服务
+//
+// 文档:
+//   - 安装Go SDK https://help.aliyun.com/document_detail/286949.html
+//   - 保留字段 https://help.aliyun.com/document_detail/92264.html
 type aliLogger struct {
 	producer *producer.Producer
 	callBack producer.CallBack
