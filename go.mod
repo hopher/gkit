@@ -3,17 +3,21 @@ module gitee.com/hpan-tec/gkit
 go 1.19
 
 require (
+	github.com/BurntSushi/toml v0.3.1
 	github.com/aliyun/aliyun-log-go-sdk v0.1.43
 	github.com/go-kit/kit v0.12.0
 	github.com/go-kit/log v0.2.0
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/gorilla/mux v1.8.0
+	github.com/redis/go-redis/v9 v9.0.2
 	google.golang.org/grpc v1.40.0
 	xorm.io/xorm v1.3.2
 )
 
 require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/goccy/go-json v0.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
