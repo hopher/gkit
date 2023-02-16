@@ -7,7 +7,6 @@ import (
 	"runtime"
 
 	kitlog "github.com/go-kit/kit/log"
-	"github.com/go-kit/log/level"
 	"google.golang.org/grpc"
 )
 
@@ -27,7 +26,7 @@ func ErrorHandleInterceptor(logger kitlog.Logger) grpc.UnaryServerInterceptor {
 
 				// 错误日志
 				if logger != nil {
-					level.Error(logger).Log("__topic__", "InternalServerError", "msg", printStackTrace(err))
+					logger.Log("errors", printStackTrace(err))
 				}
 			}
 		}()

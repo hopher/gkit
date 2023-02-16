@@ -54,7 +54,7 @@ func Recover(logger kitlog.Logger) Middleware {
 
 					// 记录错误日志
 					if logger != nil {
-						logger.Log("error", printStackTrace(err))
+						logger.Log("errors", printStackTrace(err))
 					}
 
 					res := map[string]interface{}{
