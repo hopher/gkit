@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"runtime"
 
-	kitlog "github.com/go-kit/kit/log"
+	kitlog "github.com/go-kit/log"
 )
 
 type Middleware func(http.Handler) http.Handler

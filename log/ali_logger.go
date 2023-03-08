@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/aliyun/aliyun-log-go-sdk/producer"
-	kitlog "github.com/go-kit/kit/log"
+	kitlog "github.com/go-kit/log"
 )
 
 // aliLogger 阿里云日志服务

@@ -15,8 +15,8 @@ func Example_basic() {
 
 func ExampleAliLogger_Log() {
 
-	ch := make(chan os.Signal)
-	signal.Notify(ch, os.Kill, os.Interrupt)
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, os.Interrupt)
 
 	producerConfig := producer.GetDefaultProducerConfig()
 	producerConfig.Endpoint = os.Getenv("Endpoint")
