@@ -1,5 +1,5 @@
-// Package wrapper 日志包装器，可用于打印上下文信息 (链路ID...)
-package wrapper
+// Package wrap 日志包装器，可用于打印上下文信息 (链路ID...)
+package wrap
 
 import (
 	"context"
