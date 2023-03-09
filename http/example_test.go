@@ -31,3 +31,12 @@ func Example_basic() {
 	})()
 
 }
+
+func ExampleTrace() {
+	var handler http.Handler
+	{
+		handler = CORS(nil)(handler)           // 支持跨域
+		handler = Recover(nil)(handler)        // 错误处理
+		handler = Trace("secret KEY")(handler) // 链路ID
+	}
+}
