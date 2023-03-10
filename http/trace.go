@@ -13,8 +13,8 @@ func Trace(secret string) Middleware {
 
 			requestID := r.Header.Get("X-Request-Id")
 
-			// 验证密钥，密钥正确时，才使用传过来的 requestID
-			// 防止 X-Request-Id 伪造
+			// 验证密钥，防止 X-Request-Id 伪造
+			// 密钥正确时，则采用上游 X-Request-Id
 			if secret == "" || r.Header.Get("X-Request-Secret") != secret || requestID == "" {
 				requestID = uuid.NewString()
 			}
