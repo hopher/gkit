@@ -19,7 +19,7 @@ func CORS(headers map[string]string) Middleware {
 			if headers == nil {
 				w.Header().Set("Access-Control-Allow-Origin", "*")
 				w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-				w.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type")
+				w.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
 			} else {
 				for k, v := range headers {
 					w.Header().Set(k, v)
