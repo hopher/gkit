@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/aliyun/aliyun-log-go-sdk v0.1.43
+	github.com/bwmarrin/snowflake v0.3.0
 	github.com/go-kit/kit v0.12.0
 	github.com/go-kit/log v0.2.0
 	github.com/go-sql-driver/mysql v1.7.0
