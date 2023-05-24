@@ -65,16 +65,18 @@ func (l *aliLogger) Log(keyvals ...interface{}) error {
 		merge(m, k, v)
 	}
 
-	buffer := &bytes.Buffer{}
-	enc := json.NewEncoder(buffer)
-	enc.SetEscapeHTML(false)
-	if err := enc.Encode(m); err != nil {
-		return err
+	logMap := make(map[string]string, n)
+	for k, v := range m {
+		buffer := &bytes.Buffer{}
+		enc := json.NewEncoder(buffer)
+		enc.SetEscapeHTML(false)
+		if err := enc.Encode(v); err != nil {
+			return err
+		}
+		logMap[k] = buffer.String()
 	}
 
-	log := producer.GenerateLog(uint32(time.Now().Unix()), map[string]string{
-		"content": buffer.String(),
-	})
+	log := producer.GenerateLog(uint32(time.Now().Unix()), logMap)
 
 	if l.callBack != nil {
 		return l.producer.SendLogWithCallBack(l.project, l.logStore, l.topic, l.source, log, l.callBack)
