@@ -17,7 +17,7 @@ func checkMobileReg(mobile string, regStr string) bool {
 func CheckMobile(mobile string) bool {
 
 	// 中国大陆
-	if checkMobileReg(mobile, `^(1(3|4|5|6|7|8)\d{9})$`) {
+	if checkMobileReg(mobile, `^(1(3|4|5|6|7|8|9)\d{9})$`) {
 		return true
 	}
 
