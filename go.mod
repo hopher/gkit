@@ -1,4 +1,4 @@
-module gitee.com/hpan-tec/gkit
+module github.com/hopher/gkit
 
 go 1.19
 
